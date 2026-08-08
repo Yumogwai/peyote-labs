@@ -25,5 +25,5 @@ pnpm build
 
 ## Ownership
 
-Source of truth is this GitHub repo. Deployments come from Git → Vercel.
+Source of truth is this GitHub repo. Deployments come from Git → Vercel (`main` → production).
 Not managed via v0.
