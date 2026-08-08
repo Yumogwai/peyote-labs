@@ -6,32 +6,38 @@ export function Hero() {
       {/* atmosphere */}
       <div aria-hidden className="lattice absolute inset-0 opacity-60" />
 
-      {/* drifting gradient blobs — sit behind all hero content */}
+      {/* drifting gradient blobs — outer = position, inner = motion (no transform clash) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        <div
-          className="aurora-blob aurora-a absolute left-[40%] top-[-16%] h-[620px] w-[620px] -translate-x-1/2 rounded-full opacity-[0.63] blur-[110px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(47,230,200,0.65) 0%, rgba(26,184,158,0.28) 42%, transparent 70%)',
-          }}
-        />
-        <div
-          className="aurora-blob aurora-b absolute right-[-10%] top-[10%] h-[520px] w-[520px] rounded-full opacity-[0.53] blur-[120px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(26,184,158,0.55) 0%, rgba(47,230,200,0.18) 48%, transparent 72%)',
-          }}
-        />
-        <div
-          className="aurora-blob aurora-a absolute bottom-[-18%] left-[8%] h-[420px] w-[420px] rounded-full opacity-[0.42] blur-[120px]"
-          style={{
-            background:
-              'radial-gradient(circle, rgba(47,230,200,0.40) 0%, rgba(26,184,158,0.12) 50%, transparent 72%)',
-          }}
-        />
+        <div className="absolute left-[40%] top-[-16%] h-[620px] w-[620px] -translate-x-1/2">
+          <div
+            className="aurora-blob aurora-a size-full rounded-full opacity-[0.63] blur-[110px]"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(47,230,200,0.65) 0%, rgba(26,184,158,0.28) 42%, transparent 70%)',
+            }}
+          />
+        </div>
+        <div className="absolute right-[-10%] top-[10%] h-[520px] w-[520px]">
+          <div
+            className="aurora-blob aurora-b size-full rounded-full opacity-[0.53] blur-[120px]"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(26,184,158,0.55) 0%, rgba(47,230,200,0.18) 48%, transparent 72%)',
+            }}
+          />
+        </div>
+        <div className="absolute bottom-[-18%] left-[8%] h-[420px] w-[420px]">
+          <div
+            className="aurora-blob aurora-c size-full rounded-full opacity-[0.42] blur-[120px]"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(47,230,200,0.40) 0%, rgba(26,184,158,0.12) 50%, transparent 72%)',
+            }}
+          />
+        </div>
       </div>
 
       {/* soft fade into the next block — no hard border */}
