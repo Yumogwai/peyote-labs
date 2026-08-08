@@ -3,7 +3,8 @@
 Company website for **Peyote Labs** — a two-person software studio in Warsaw.
 Services (websites, SEO, audits, creatives, ads) + products (JobCommand, WellFitCV).
 
-- Live (Vercel): https://peyote-labs.vercel.app
+- Live: https://www.peyote-labs.com
+- Vercel (backup): https://peyote-labs.vercel.app
 - LinkedIn: https://www.linkedin.com/company/peyote-labs-software-company/
 
 ## Stack

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   description:
     'Peyote Labs is a two-person software studio in Warsaw. We build our own AI products — and help companies grow with websites, SEO, creatives, and ads.',
-  metadataBase: new URL('https://peyotelabs.com'),
+  metadataBase: new URL('https://www.peyote-labs.com'),
   openGraph: {
     title: 'Peyote Labs — Practical AI products & growth systems',
     description:
