@@ -6,35 +6,38 @@ export function Hero() {
       {/* atmosphere */}
       <div aria-hidden className="lattice absolute inset-0 opacity-60" />
 
-      {/* drifting gradient blobs — outer = position, inner = motion (no transform clash) */}
+      {/*
+        Motion on the OUTER wrapper only. Blur stays on the INNER child —
+        animating transform on a blurred element often looks frozen in Chromium.
+      */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        <div className="absolute left-[40%] top-[-16%] h-[620px] w-[620px] -translate-x-1/2">
+        <div className="aurora-travel aurora-travel-a absolute -left-[15%] -top-[25%] h-[70vmin] w-[70vmin]">
           <div
-            className="aurora-blob aurora-a size-full rounded-full opacity-[0.63] blur-[110px]"
+            className="size-full rounded-full opacity-70 blur-[100px]"
             style={{
               background:
-                'radial-gradient(circle, rgba(47,230,200,0.65) 0%, rgba(26,184,158,0.28) 42%, transparent 70%)',
+                'radial-gradient(circle, rgba(47,230,200,0.75) 0%, rgba(26,184,158,0.3) 45%, transparent 70%)',
             }}
           />
         </div>
-        <div className="absolute right-[-10%] top-[10%] h-[520px] w-[520px]">
+        <div className="aurora-travel aurora-travel-b absolute -right-[20%] top-[5%] h-[60vmin] w-[60vmin]">
           <div
-            className="aurora-blob aurora-b size-full rounded-full opacity-[0.53] blur-[120px]"
+            className="size-full rounded-full opacity-60 blur-[110px]"
             style={{
               background:
-                'radial-gradient(circle, rgba(26,184,158,0.55) 0%, rgba(47,230,200,0.18) 48%, transparent 72%)',
+                'radial-gradient(circle, rgba(26,184,158,0.65) 0%, rgba(47,230,200,0.22) 48%, transparent 72%)',
             }}
           />
         </div>
-        <div className="absolute bottom-[-18%] left-[8%] h-[420px] w-[420px]">
+        <div className="aurora-travel aurora-travel-c absolute -bottom-[30%] left-[5%] h-[55vmin] w-[55vmin]">
           <div
-            className="aurora-blob aurora-c size-full rounded-full opacity-[0.42] blur-[120px]"
+            className="size-full rounded-full opacity-45 blur-[110px]"
             style={{
               background:
-                'radial-gradient(circle, rgba(47,230,200,0.40) 0%, rgba(26,184,158,0.12) 50%, transparent 72%)',
+                'radial-gradient(circle, rgba(47,230,200,0.5) 0%, rgba(26,184,158,0.15) 50%, transparent 72%)',
             }}
           />
         </div>
