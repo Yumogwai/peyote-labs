@@ -20,4 +20,9 @@ Next.js App Router · TypeScript · Tailwind v4 · deploy on Vercel (`peyote-lab
 - Never mention Andrii's current employer / Workday in copy.
 - Company voice (studio), not personal freelancer voice.
 - GitHub `Yumogwai/peyote-labs` is source of truth — not v0.
-- Prod deploy: Vercel from `main` after PR merge (Never-auto direct prod exceptions do not apply unless Andrii says otherwise).
+
+## Deploy (fast path — confirmed 2026-08-12)
+
+- Vercel Git Integration is on: **every push to `main` → Production** on www.peyote-labs.com.
+- Other branches → Preview only (not the live site).
+- **Exception to OS Never-auto:** for this project the agent may `git push` to `main` (and merge open PRs into `main`) so the live site updates without a second approve. No force-push. No other projects inherit this.
