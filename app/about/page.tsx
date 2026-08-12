@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import { PageHeader, PrimaryCta, Eyebrow } from '@/components/primitives'
 import { SITE } from '@/lib/site-data'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
+  path: '/about',
   title: 'About',
   description:
     'Peyote Labs is a two-person software studio in Warsaw. We design, build, and run our own AI products — and apply the same craft to client work.',
-}
+})
 
 const PRINCIPLES = [
   {

@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { PageHeader } from '@/components/primitives'
 import { SITE } from '@/lib/site-data'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
+  path: '/terms',
   title: 'Terms',
   description: 'The terms that apply to this website and to working with Peyote Labs.',
-}
+})
 
 export default function TermsPage() {
   return (

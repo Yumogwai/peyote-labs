@@ -4,6 +4,14 @@ import { Hero } from '@/components/home/hero'
 import { PrimaryCta, TextLink, SectionHeading, Eyebrow } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
 import { SERVICES, PRODUCTS } from '@/lib/site-data'
+import { pageMeta, rootDefaults } from '@/lib/seo'
+
+export const metadata = pageMeta({
+  path: '/',
+  title: rootDefaults.title,
+  description: rootDefaults.description,
+  absoluteTitle: true,
+})
 
 export default function Home() {
   return (

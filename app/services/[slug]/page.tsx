@@ -3,7 +3,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, Check } from 'lucide-react'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
+import { JsonLd } from '@/components/json-ld'
 import { SERVICES, getService } from '@/lib/site-data'
+import { breadcrumbSchema, serviceSchema } from '@/lib/schema'
+import { pageMeta } from '@/lib/seo'
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }))
@@ -17,10 +20,11 @@ export async function generateMetadata({
   const { slug } = await params
   const service = getService(slug)
   if (!service) return {}
-  return {
+  return pageMeta({
+    path: `/services/${service.slug}`,
     title: service.name,
     description: service.short,
-  }
+  })
 }
 
 export default async function ServiceDetailPage({
@@ -37,6 +41,16 @@ export default async function ServiceDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={[
+          serviceSchema(service),
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Services', path: '/services' },
+            { name: service.name, path: `/services/${service.slug}` },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden border-b border-border">
         <div aria-hidden className="lattice absolute inset-0 opacity-40" />
         <div

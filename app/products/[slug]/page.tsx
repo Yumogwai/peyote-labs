@@ -4,7 +4,10 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
+import { JsonLd } from '@/components/json-ld'
 import { PRODUCTS, getProduct } from '@/lib/site-data'
+import { breadcrumbSchema, softwareApplicationSchema } from '@/lib/schema'
+import { pageMeta } from '@/lib/seo'
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }))
@@ -18,10 +21,11 @@ export async function generateMetadata({
   const { slug } = await params
   const product = getProduct(slug)
   if (!product) return {}
-  return {
+  return pageMeta({
+    path: `/products/${product.slug}`,
     title: product.name,
     description: product.tagline,
-  }
+  })
 }
 
 export default async function ProductDetailPage({
@@ -37,6 +41,16 @@ export default async function ProductDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={[
+          softwareApplicationSchema(product),
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Products', path: '/products' },
+            { name: product.name, path: `/products/${product.slug}` },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden border-b border-border">
         <div aria-hidden className="lattice absolute inset-0 opacity-40" />
         <div

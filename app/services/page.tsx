@@ -1,14 +1,15 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { PageHeader, PrimaryCta } from '@/components/primitives'
 import { SERVICES } from '@/lib/site-data'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
+  path: '/services',
   title: 'Services',
   description:
     'Websites, SEO and SEO automation, marketing audits, creative generation, and advertising — run as systems, not one-off deliverables.',
-}
+})
 
 export default function ServicesPage() {
   return (

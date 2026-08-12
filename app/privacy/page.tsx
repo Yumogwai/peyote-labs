@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { PageHeader } from '@/components/primitives'
 import { SITE } from '@/lib/site-data'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
+  path: '/privacy',
   title: 'Privacy',
   description: 'How Peyote Labs handles the information you share with us.',
-}
+})
 
 export default function PrivacyPage() {
   return (

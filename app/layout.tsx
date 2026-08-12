@@ -4,6 +4,13 @@ import { Syne, Instrument_Sans } from 'next/font/google'
 import { SiteNav } from '@/components/site-nav'
 import { SiteFooter } from '@/components/site-footer'
 import { GrainOverlay } from '@/components/grain-overlay'
+import { JsonLd } from '@/components/json-ld'
+import {
+  organizationSchema,
+  professionalServiceSchema,
+  websiteSchema,
+} from '@/lib/schema'
+import { rootDefaults, SITE_NAME, SITE_URL } from '@/lib/seo'
 import './globals.css'
 
 const display = Syne({
@@ -19,18 +26,24 @@ const body = Instrument_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Peyote Labs — Practical AI products & growth systems',
-    template: '%s — Peyote Labs',
+    default: rootDefaults.title,
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    'Peyote Labs is a two-person software studio in Warsaw. We build our own AI products — and help companies grow with websites, SEO, creatives, and ads.',
-  metadataBase: new URL('https://www.peyote-labs.com'),
+  description: rootDefaults.description,
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
-    title: 'Peyote Labs — Practical AI products & growth systems',
-    description:
-      'A two-person software studio shipping practical AI products, built honestly, used by real people.',
     type: 'website',
+    siteName: SITE_NAME,
+    locale: 'en_GB',
+    // title/description intentionally omitted here so child pages do not
+    // inherit the homepage OG copy. Homepage sets its own via pageMeta.
+  },
+  twitter: {
+    card: 'summary_large_image',
   },
 }
 
@@ -47,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} bg-background`}>
       <body className="min-h-screen antialiased font-sans">
+        <JsonLd data={[organizationSchema(), websiteSchema(), professionalServiceSchema()]} />
         <GrainOverlay />
         <SiteNav />
         <main>{children}</main>

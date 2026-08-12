@@ -28,3 +28,6 @@ Thumbs.db
 # editors
 .idea
 .vscode
+
+# local SEO audit artifacts
+seo-audit-output/
