@@ -70,7 +70,7 @@ export default function ContactPage() {
 function ContactRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <span className="font-display text-sm italic text-muted-foreground">
         {label}
       </span>
       {children}

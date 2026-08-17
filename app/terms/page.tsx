@@ -41,7 +41,7 @@ export default function TermsPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
+      <h2 className="font-display text-lg font-medium text-foreground">
         {title}
       </h2>
       <p className="mt-2 text-muted-foreground">{children}</p>

@@ -50,7 +50,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <span>© {new Date().getFullYear()} Peyote Labs. All rights reserved.</span>
-          <span className="font-display tracking-[0.2em]">PEYOTE LABS · WARSAW</span>
+          <span className="font-display italic">Peyote Labs · Warsaw</span>
         </div>
       </div>
     </footer>
@@ -60,7 +60,7 @@ export function SiteFooter() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-xs font-medium uppercase tracking-[0.18em] text-foreground/80">
+      <h3 className="font-display text-sm italic text-foreground/80">
         {title}
       </h3>
       <div className="flex flex-col gap-2.5">{children}</div>

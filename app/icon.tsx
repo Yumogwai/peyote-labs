@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { brand } from '@/lib/brand'
 
 export const size = { width: 32, height: 32 }
 export const contentType = 'image/png'
@@ -14,16 +15,16 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#0b1214',
-          borderRadius: 8,
-          border: '1px solid rgba(255,255,255,0.1)',
+          background: brand.mark,
+          borderRadius: 6,
+          border: `1px solid ${brand.border}`,
         }}
       >
         <svg width="22" height="22" viewBox="0 0 48 48">
           <defs>
             <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#2fe6c8" />
-              <stop offset="1" stopColor="#1ab89e" />
+              <stop offset="0" stopColor={brand.accentLight} />
+              <stop offset="1" stopColor={brand.accentDeep} />
             </linearGradient>
           </defs>
           <g
@@ -37,7 +38,7 @@ export default function Icon() {
             <path d="M24 9 L24 24 M11 17 L24 24 L37 17 M11 31 L24 24 L37 31" strokeWidth="1.6" />
             <path d="M24 24 L24 39" strokeWidth="1.6" />
           </g>
-          <circle cx="24" cy="24" r="2.2" fill="#2fe6c8" />
+          <circle cx="24" cy="24" r="2.2" fill={brand.accent} />
         </svg>
       </div>
     ),

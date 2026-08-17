@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { brand } from '@/lib/brand'
 
 export const size = { width: 180, height: 180 }
 export const contentType = 'image/png'
@@ -14,16 +15,16 @@ export default function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#0b1214',
-          borderRadius: 40,
-          border: '2px solid rgba(255,255,255,0.1)',
+          background: brand.mark,
+          borderRadius: 36,
+          border: `2px solid ${brand.border}`,
         }}
       >
         <svg width="120" height="120" viewBox="0 0 48 48">
           <defs>
             <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#2fe6c8" />
-              <stop offset="1" stopColor="#1ab89e" />
+              <stop offset="0" stopColor={brand.accentLight} />
+              <stop offset="1" stopColor={brand.accentDeep} />
             </linearGradient>
           </defs>
           <g
@@ -41,7 +42,7 @@ export default function AppleIcon() {
             />
             <path d="M24 24 L24 39" strokeWidth="1.2" opacity="0.65" />
           </g>
-          <circle cx="24" cy="24" r="2" fill="#2fe6c8" />
+          <circle cx="24" cy="24" r="2" fill={brand.accent} />
         </svg>
       </div>
     ),

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Hero } from '@/components/home/hero'
+import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, SectionHeading, Eyebrow } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
 import { SERVICES, PRODUCTS } from '@/lib/site-data'
@@ -24,7 +25,7 @@ function SplitSection() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-2">
         <div className="border-b border-border p-8 sm:p-12 md:border-b-0 md:border-r">
           <Eyebrow>Services</Eyebrow>
-          <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight">
+          <h3 className="mt-4 font-display text-2xl font-medium">
             We build and grow digital systems for businesses.
           </h3>
           <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -37,7 +38,7 @@ function SplitSection() {
         </div>
         <div className="p-8 sm:p-12">
           <Eyebrow>Products</Eyebrow>
-          <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight">
+          <h3 className="mt-4 font-display text-2xl font-medium">
             We ship products we use and maintain.
           </h3>
           <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -71,7 +72,7 @@ function ServicesList() {
             >
               <span className="font-display text-sm text-accent sm:text-base">{s.index}</span>
               <div className="min-w-0">
-                <h3 className="font-display text-xl font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
+                <h3 className="font-display text-xl font-medium transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
                   {s.name}
                 </h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.short}</p>
@@ -102,7 +103,7 @@ function ProductPanels() {
         <div className="mt-12 flex flex-col gap-6">
           <article className="grid gap-8 rounded-xl border border-border bg-background p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
             <div>
-              <h3 className="font-display text-2xl font-semibold tracking-tight">
+              <h3 className="font-display text-2xl font-medium">
                 {jobcommand.name}
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">{jobcommand.domain}</p>
@@ -121,7 +122,7 @@ function ProductPanels() {
 
           <article className="grid gap-8 rounded-xl border border-border bg-background p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
             <div className="lg:order-2">
-              <h3 className="font-display text-2xl font-semibold tracking-tight">
+              <h3 className="font-display text-2xl font-medium">
                 {wellfitcv.name}
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">{wellfitcv.domain}</p>
@@ -173,10 +174,10 @@ function HowWeWork() {
         <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
           {steps.map((step) => (
             <div key={step.index} className="bg-background p-8">
-              <span className="font-display text-3xl font-semibold text-accent/80">
+              <span className="font-display text-3xl italic text-accent/70">
                 {step.index}
               </span>
-              <h3 className="mt-5 font-display text-lg font-semibold tracking-tight">
+              <h3 className="mt-5 font-display text-lg font-medium">
                 {step.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
@@ -191,10 +192,10 @@ function HowWeWork() {
 function ContactStrip() {
   return (
     <section className="relative overflow-hidden">
-      <div aria-hidden className="lattice absolute inset-0 opacity-30" />
+      <MineralBackdrop density="quiet" />
       <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-5 py-20 sm:px-8 sm:py-24 md:flex-row md:items-center md:justify-between">
         <div className="max-w-xl">
-          <h2 className="font-display text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
+          <h2 className="font-display text-2xl font-medium text-balance sm:text-3xl">
             Writing as Peyote Labs — not as a freelancer.
           </h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">

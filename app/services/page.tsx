@@ -29,7 +29,7 @@ export default function ServicesPage() {
             >
               <span className="font-display text-sm text-accent sm:text-lg">{s.index}</span>
               <div className="min-w-0">
-                <h2 className="font-display text-xl font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
+                <h2 className="font-display text-xl font-medium transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
                   {s.name}
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -44,7 +44,7 @@ export default function ServicesPage() {
 
         <div className="mt-14 flex flex-col items-start gap-5 rounded-xl border border-border bg-surface/40 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
           <div className="max-w-lg">
-            <h3 className="font-display text-xl font-semibold tracking-tight">
+            <h3 className="font-display text-xl font-medium">
               Not sure where to start?
             </h3>
             <p className="mt-2 leading-relaxed text-muted-foreground">

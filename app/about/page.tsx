@@ -63,7 +63,7 @@ export default function AboutPage() {
             <div className="mt-6 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
               {PRINCIPLES.map((p) => (
                 <div key={p.title} className="bg-background p-7">
-                  <h2 className="font-display text-lg font-semibold tracking-tight">
+                  <h2 className="font-display text-lg font-medium">
                     {p.title}
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
@@ -74,7 +74,7 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-20 flex flex-col items-start gap-5 border-t border-border pt-10 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="max-w-lg font-display text-2xl font-semibold tracking-tight text-balance">
+          <h2 className="max-w-lg font-display text-2xl font-medium text-balance">
             If that sounds like the kind of team you want, let&apos;s talk.
           </h2>
           <PrimaryCta href="/contact">Talk to the studio</PrimaryCta>

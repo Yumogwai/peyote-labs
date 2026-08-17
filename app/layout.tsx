@@ -1,21 +1,24 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Syne, Instrument_Sans } from 'next/font/google'
+import { Newsreader, Source_Sans_3 } from 'next/font/google'
 import { SiteNav } from '@/components/site-nav'
 import { SiteFooter } from '@/components/site-footer'
 import { GrainOverlay } from '@/components/grain-overlay'
 import './globals.css'
 
-const display = Syne({
+const display = Newsreader({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-display-family',
+  display: 'swap',
 })
 
-const body = Instrument_Sans({
+const body = Source_Sans_3({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: '#070b0c',
+  themeColor: '#120f0c',
 }
 
 export default function RootLayout({

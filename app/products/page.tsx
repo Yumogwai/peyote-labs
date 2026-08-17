@@ -23,7 +23,7 @@ export default function ProductsPage() {
       <section className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-16 sm:px-8 sm:py-24">
         <article className="grid gap-8 rounded-xl border border-border bg-surface/30 p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+            <h2 className="font-display text-2xl font-medium sm:text-3xl">
               {jobcommand.name}
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">{jobcommand.domain}</p>
@@ -42,7 +42,7 @@ export default function ProductsPage() {
 
         <article className="grid gap-8 rounded-xl border border-border bg-surface/30 p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
           <div className="lg:order-2">
-            <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+            <h2 className="font-display text-2xl font-medium sm:text-3xl">
               {wellfitcv.name}
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">{wellfitcv.domain}</p>

@@ -18,7 +18,7 @@ export function SiteNav() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link href="/" aria-label="Peyote Labs home" className="shrink-0">
           <LogoWordmark />
@@ -42,7 +42,7 @@ export function SiteNav() {
           })}
           <Link
             href="/contact"
-            className="rounded-md border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
+            className="rounded-sm border border-accent/50 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             Contact
           </Link>
@@ -51,7 +51,7 @@ export function SiteNav() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-border text-foreground md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-sm border border-border text-foreground md:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
         >
@@ -75,7 +75,7 @@ export function SiteNav() {
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-1 rounded-md border border-accent/40 bg-accent/10 px-3 py-3 text-sm font-medium text-accent"
+              className="mt-1 rounded-sm border border-accent/50 px-3 py-3 text-sm font-medium text-accent"
             >
               Contact
             </Link>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, Check } from 'lucide-react'
+import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
 import { SERVICES, getService } from '@/lib/site-data'
 
@@ -38,7 +39,7 @@ export default async function ServiceDetailPage({
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
-        <div aria-hidden className="lattice absolute inset-0 opacity-40" />
+        <MineralBackdrop density="quiet" />
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent"
@@ -53,7 +54,7 @@ export default async function ServiceDetailPage({
           </Link>
           <div className="mt-8 flex items-baseline gap-4">
             <span className="font-display text-lg text-accent">{service.index}</span>
-            <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl">
+            <h1 className="max-w-3xl font-display text-4xl font-medium leading-[1.12] text-balance sm:text-5xl">
               {service.name}
             </h1>
           </div>
@@ -123,7 +124,7 @@ export default async function ServiceDetailPage({
 
         <div className="mt-20 flex flex-col items-start gap-5 border-t border-border pt-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight">
+            <h2 className="font-display text-2xl font-medium">
               Want this for your business?
             </h2>
             <p className="mt-2 leading-relaxed text-muted-foreground">

@@ -30,7 +30,7 @@ export function ContactForm() {
         <span className="flex h-11 w-11 items-center justify-center rounded-full border border-accent/40 bg-accent/10">
           <Check className="h-5 w-5 text-accent" />
         </span>
-        <h2 className="font-display text-xl font-semibold tracking-tight">
+        <h2 className="font-display text-xl font-medium">
           Thanks{name ? `, ${name.split(' ')[0]}` : ''}. Message received.
         </h2>
         <p className="max-w-md leading-relaxed text-muted-foreground">
@@ -96,7 +96,7 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="mt-1 inline-flex items-center justify-center rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-all hover:-translate-y-0.5 hover:bg-accent-2"
+        className="mt-1 inline-flex items-center justify-center rounded-sm bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-2"
       >
         Send to Peyote Labs
       </button>
@@ -123,7 +123,7 @@ function Field({
 }) {
   return (
     <label htmlFor={htmlFor} className="flex flex-col gap-2">
-      <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <span className="text-sm text-muted-foreground">
         {label}
       </span>
       {children}

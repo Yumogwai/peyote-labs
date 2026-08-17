@@ -25,7 +25,7 @@ export function PipelineMock({ className }: { className?: string }) {
         {columns.map((col) => (
           <div key={col.name} className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+              <span className="text-[11px] font-medium text-muted-foreground">
                 {col.name}
               </span>
               <span className="rounded bg-surface-2 px-1.5 text-[10px] text-muted-foreground">
@@ -70,7 +70,7 @@ export function ResumeMock({ className }: { className?: string }) {
       </div>
       <div className="grid gap-3 p-4 sm:grid-cols-2">
         <div className="rounded-md border border-border bg-surface-2 p-3">
-          <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          <span className="text-[11px] font-medium text-muted-foreground">
             Job description
           </span>
           <div className="mt-3 space-y-1.5">
@@ -84,7 +84,7 @@ export function ResumeMock({ className }: { className?: string }) {
           </div>
         </div>
         <div className="rounded-md border border-accent/30 bg-accent/5 p-3">
-          <span className="text-[11px] font-medium uppercase tracking-wider text-accent">
+          <span className="text-[11px] font-medium italic text-accent">
             Tailored resume
           </span>
           <div className="mt-3 space-y-1.5">

@@ -27,24 +27,24 @@
   --color-destructive: oklch(0.62 0.2 25);
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display-family), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-family), ui-serif, Georgia, 'Times New Roman', serif;
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
 }
 
 :root {
   color-scheme: dark;
-  --bg: #070b0c;
-  --surface: #0e1517;
-  --surface-2: #152022;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #eef3f2;
-  --muted: #8a9a96;
-  --accent: #2fe6c8;
-  --accent-2: #1ab89e;
+  --bg: #120f0c;
+  --surface: #1b1713;
+  --surface-2: #241f1a;
+  --border: rgba(232, 214, 180, 0.13);
+  --text: #f1e9dc;
+  --muted: #9d9385;
+  --accent: #d4a07c;
+  --accent-2: #c07d52;
 }
 
 @layer base {
@@ -56,7 +56,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: 'ss01', 'cv01';
+    font-feature-settings: 'kern', 'liga';
   }
   ::selection {
     background: var(--accent);
@@ -71,36 +71,38 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
+    font-feature-settings: 'kern', 'liga', 'onum';
   }
-  /* Subtle film grain overlay */
+  /* Sandstone dust — warmer than film grain */
   .grain-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  /* Node-lattice hero backdrop */
-  .lattice {
-    background-image:
-      radial-gradient(rgba(47, 230, 200, 0.14) 1px, transparent 1px),
-      radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 42px 42px, 42px 42px;
-    background-position: 0 0, 21px 21px;
+  /* Sun catching a cut stone */
+  .mineral-wash {
+    background:
+      radial-gradient(ellipse 75% 55% at 82% 6%, rgba(212, 160, 124, 0.22) 0%, transparent 58%),
+      radial-gradient(ellipse 55% 45% at 8% 92%, rgba(72, 52, 36, 0.45) 0%, transparent 62%);
   }
-  .draw-line {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: draw 1.4s ease forwards;
-  }
-}
-
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
+  /* Sedimentary strata */
+  .mineral-strata {
+    background-image: repeating-linear-gradient(
+      -8deg,
+      transparent 0,
+      transparent 61px,
+      rgba(232, 214, 180, 0.04) 61px,
+      rgba(232, 214, 180, 0.04) 62px,
+      transparent 62px,
+      transparent 117px,
+      rgba(120, 92, 64, 0.05) 117px,
+      rgba(120, 92, 64, 0.05) 120px
+    );
   }
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -110,69 +112,29 @@
 
 .animate-rise {
   opacity: 0;
-  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/*
-  Hero aurora — travel across the section (vw/vh), not tiny self-% nudges.
-  Animate the wrapper; keep filter:blur on the child only (Chromium freezes
-  transform animations when blur is on the same node).
-*/
-@keyframes aurora-travel-a {
+@keyframes mineral-gleam {
   0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(42vw, 28vh, 0);
+    transform: translate(-18px, -18px);
+    opacity: 0.35;
   }
   100% {
-    transform: translate3d(8vw, 12vh, 0);
+    transform: translate(18px, 18px);
+    opacity: 0.7;
   }
 }
 
-@keyframes aurora-travel-b {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(-48vw, 22vh, 0);
-  }
-  100% {
-    transform: translate3d(-12vw, -8vh, 0);
-  }
-}
-
-@keyframes aurora-travel-c {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(36vw, -30vh, 0);
-  }
-  100% {
-    transform: translate3d(14vw, -10vh, 0);
-  }
-}
-
-.aurora-travel {
-  will-change: transform;
-}
-.aurora-travel-a {
-  animation: aurora-travel-a 14s ease-in-out infinite alternate;
-}
-.aurora-travel-b {
-  animation: aurora-travel-b 18s ease-in-out infinite alternate;
-  animation-delay: -4s;
-}
-.aurora-travel-c {
-  animation: aurora-travel-c 16s ease-in-out infinite alternate;
-  animation-delay: -8s;
+.mineral-gleam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mineral-gleam 16s ease-in-out infinite alternate;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora-travel-a,
-  .aurora-travel-b,
-  .aurora-travel-c {
-    animation-duration: 48s;
+  .mineral-gleam {
+    animation: none;
+    opacity: 0.4;
   }
 }
