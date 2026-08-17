@@ -17,25 +17,25 @@ export function Hero() {
             className="animate-rise max-w-3xl font-display text-4xl font-medium leading-[1.12] text-balance sm:text-6xl"
             style={{ animationDelay: '0ms' }}
           >
-            Practical AI products.
+            Our products are already live.
             <br />
-            <span className="italic">Growth systems</span> that ship.
+            <span className="italic">Client work is the same job.</span>
           </h1>
 
           <p
             className="animate-rise mt-6 max-w-xl text-pretty leading-relaxed text-muted-foreground sm:text-lg"
             style={{ animationDelay: '180ms' }}
           >
-            Peyote Labs is a two-person studio. We build our own SaaS — and we help companies
-            grow with websites, SEO, creatives, and ads.
+            Two people in Warsaw. JobCommand and WellFitCV have real users. For companies we
+            do websites, SEO, creatives and ads.
           </p>
 
           <div
             className="animate-rise mt-9 flex flex-wrap items-center gap-6"
             style={{ animationDelay: '270ms' }}
           >
-            <PrimaryCta href="/contact">Talk to the studio</PrimaryCta>
-            <TextLink href="/products">See our products</TextLink>
+            <PrimaryCta href="/contact">Write to us</PrimaryCta>
+            <TextLink href="/products">See the products</TextLink>
           </div>
         </div>
       </div>

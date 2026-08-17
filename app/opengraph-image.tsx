@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { brand } from '@/lib/brand'
 
-export const alt = 'Peyote Labs — Practical AI products & growth systems'
+export const alt = 'Peyote Labs — a two-person studio in Warsaw'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -71,7 +71,7 @@ export default function OpenGraphImage() {
               maxWidth: 920,
             }}
           >
-            Practical AI products. Growth systems that ship.
+            Our products are already live. Client work is the same job.
           </div>
           <div
             style={{
@@ -82,7 +82,7 @@ export default function OpenGraphImage() {
               fontFamily: 'system-ui, sans-serif',
             }}
           >
-            Two-person software studio in Warsaw — websites, SEO, creatives, ads, and live SaaS.
+            Two people in Warsaw. JobCommand, WellFitCV, and client work: websites, SEO, creatives, ads.
           </div>
         </div>
 

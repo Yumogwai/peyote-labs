@@ -23,16 +23,16 @@ const body = Source_Sans_3({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Peyote Labs — Practical AI products & growth systems',
+    default: 'Peyote Labs — a two-person studio in Warsaw',
     template: '%s — Peyote Labs',
   },
   description:
-    'Peyote Labs is a two-person software studio in Warsaw. We build our own AI products — and help companies grow with websites, SEO, creatives, and ads.',
+    'Peyote Labs is two people in Warsaw. We run our own products — JobCommand and WellFitCV — and we do websites, SEO, creatives and ads for other companies.',
   metadataBase: new URL('https://www.peyote-labs.com'),
   openGraph: {
-    title: 'Peyote Labs — Practical AI products & growth systems',
+    title: 'Peyote Labs — a two-person studio in Warsaw',
     description:
-      'A two-person software studio shipping practical AI products, built honestly, used by real people.',
+      'Two people. Two live products. Client work done the same way: websites, SEO, creatives and ads.',
     type: 'website',
   },
 }
