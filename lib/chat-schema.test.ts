@@ -2,18 +2,28 @@ import { describe, expect, it } from 'vitest'
 import { chatReplySchema, chatRequestSchema } from '@/lib/chat-schema'
 
 describe('chatRequestSchema', () => {
-  it('accepts a short visitor message and rejects oversized content', () => {
-    expect(
-      chatRequestSchema.safeParse({
-        messages: [{ role: 'user', content: 'I need more qualified leads.' }],
-      }).success,
-    ).toBe(true)
+  it('accepts a single message field', () => {
+    const parsed = chatRequestSchema.safeParse({ message: 'I need more qualified leads.' })
+    expect(parsed.success).toBe(true)
+    if (parsed.success) {
+      expect(parsed.data).toBe('I need more qualified leads.')
+    }
+  })
 
-    expect(
-      chatRequestSchema.safeParse({
-        messages: [{ role: 'user', content: 'x'.repeat(1001) }],
-      }).success,
-    ).toBe(false)
+  it('accepts legacy single-item messages array', () => {
+    const parsed = chatRequestSchema.safeParse({
+      messages: [{ role: 'user', content: 'I need more qualified leads.' }],
+    })
+    expect(parsed.success).toBe(true)
+    if (parsed.success) {
+      expect(parsed.data).toBe('I need more qualified leads.')
+    }
+  })
+
+  it('rejects oversized content and unsafe payloads', () => {
+    expect(chatRequestSchema.safeParse({ message: 'x'.repeat(1001) }).success).toBe(false)
+    expect(chatRequestSchema.safeParse({ message: 'javascript:alert(1)' }).success).toBe(false)
+    expect(chatRequestSchema.safeParse({}).success).toBe(false)
   })
 })
 

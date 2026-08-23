@@ -2,6 +2,7 @@
 
 import { MessageCircle, X, Send, Loader2, AlertCircle, Check } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { saveChatHandoff } from '@/lib/chat-handoff'
 
 const SUGGESTIONS = [
   'I need more qualified leads',
@@ -68,7 +69,9 @@ export function ChatWidget() {
   }
 
   // Send message to API
-  const sendMessage = useCallback(async (content: string, isSuggestion = false) => {
+  const sendMessage = useCallback(async (content: string) => {
+    if (state.showPrivacyBanner) return
+
     const userMessage: Message = {
       id: generateId(),
       role: 'user',
@@ -87,9 +90,7 @@ export function ChatWidget() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...state.messages, userMessage].map((m) => ({ role: m.role, content: m.content })),
-        }),
+        body: JSON.stringify({ message: content }),
       })
 
       const data = await response.json()
@@ -134,16 +135,16 @@ export function ChatWidget() {
         errorMessage: 'Unable to connect. Please try again or use the contact form.',
       }))
     }
-  }, [state.messages])
+  }, [state.messages, state.showPrivacyBanner])
 
-  // Handle suggestion click
   const handleSuggestionClick = (suggestion: string) => {
-    sendMessage(suggestion, true)
+    if (state.showPrivacyBanner) return
+    sendMessage(suggestion)
   }
 
-  // Handle form submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (state.showPrivacyBanner) return
     if (inputValue.trim() && state.status === 'idle') {
       sendMessage(inputValue.trim())
       setInputValue('')
@@ -166,14 +167,12 @@ export function ChatWidget() {
   // Navigate to contact form with prefilled data
   const goToContact = () => {
     if (state.handoffData) {
-      const params = new URLSearchParams({
+      saveChatHandoff({
         need: state.handoffData.need,
-        context: state.handoffData.summary,
+        summary: state.handoffData.summary,
       })
-      window.location.href = `/contact?${params.toString()}`
-    } else {
-      window.location.href = '/contact'
     }
+    window.location.href = '/contact?from=chat'
   }
 
   // Close chat
@@ -234,7 +233,8 @@ export function ChatWidget() {
             {/* Privacy banner */}
             {state.showPrivacyBanner && (
               <div className="rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs leading-relaxed text-accent-foreground">
-                We store this conversation under an anonymous ID to improve our service. By continuing you agree.
+                This chat is for Peyote Labs services only. We store messages under an anonymous ID.
+                Do not share passwords, API keys, payment cards, or other secrets here.
                 <a href="/privacy" className="underline hover:no-underline ml-1">
                   Privacy policy
                 </a>
@@ -263,7 +263,7 @@ export function ChatWidget() {
                         key={suggestion}
                         type="button"
                         onClick={() => handleSuggestionClick(suggestion)}
-                        disabled={state.status !== 'idle'}
+                        disabled={state.status !== 'idle' || state.showPrivacyBanner}
                         className="rounded-full border border-accent/40 px-3 py-2 text-left text-xs text-accent transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {suggestion}
@@ -371,14 +371,14 @@ export function ChatWidget() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your message…"
-                  disabled={state.status !== 'idle'}
+                  disabled={state.status !== 'idle' || state.showPrivacyBanner}
                   maxLength={1000}
                   className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Chat message"
                 />
                 <button
                   type="submit"
-                  disabled={!inputValue.trim() || state.status !== 'idle'}
+                  disabled={!inputValue.trim() || state.status !== 'idle' || state.showPrivacyBanner}
                   className="rounded-lg bg-accent px-3 py-2 text-accent-foreground hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none"
                   aria-label="Send message"
                 >
@@ -389,7 +389,7 @@ export function ChatWidget() {
 
             {/* Disclaimer */}
             <p className="text-xs leading-relaxed text-muted-foreground text-center">
-              AI assistant. For a project conversation, contact the studio directly.
+              AI assistant for Peyote Labs services only. Never share secrets here.
             </p>
           </div>
         </section>

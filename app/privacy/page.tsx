@@ -28,6 +28,13 @@ export default function PrivacyPage() {
             We use privacy-respecting analytics to understand aggregate site usage. This does
             not identify you individually.
           </Section>
+          <Section title="Website chat">
+            The &quot;Ask Peyote Labs&quot; chat stores your messages under an anonymous conversation ID
+            in a cookie and in our database so we can continue the thread and improve the service.
+            Do not paste passwords, API keys, payment card numbers, or other secrets into chat.
+            If you continue to the contact form from chat, a short summary may be copied into the
+            message field on your device only — it is not added to the page URL.
+          </Section>
           <Section title="Your rights">
             You can ask us what we hold about you, and request that we correct or delete it, by
             emailing {SITE.email}.

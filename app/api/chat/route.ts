@@ -4,7 +4,12 @@ import { ChatRepository } from '@/lib/chat-repository'
 import { ChatService, getDefaultKnowledge } from '@/lib/chat-service'
 import { createBudgetTracker } from '@/lib/budget'
 import { checkRateLimit, rateLimitKey } from '@/lib/rate-limit'
-import { evaluateInboundMessage, redactSensitiveText } from '@/lib/chat-security'
+import {
+  evaluateInboundMessage,
+  isValidConversationId,
+  redactSensitiveText,
+  sanitizeConversationForModel,
+} from '@/lib/chat-security'
 import type { ChatReply } from '@/lib/chat-schema'
 
 const COOKIE_NAME = 'chat_conv_id'
@@ -14,6 +19,11 @@ const COOKIE_OPTIONS = {
   sameSite: 'lax' as const,
   maxAge: 60 * 60 * 24 * 30,
   path: '/',
+}
+
+const SECURITY_HEADERS = {
+  'Cache-Control': 'no-store',
+  'X-Content-Type-Options': 'nosniff',
 }
 
 const budgetTracker = createBudgetTracker({
@@ -27,7 +37,7 @@ function chatJsonResponse(
   payload: Record<string, unknown>,
   status = 200,
 ) {
-  const response = NextResponse.json(payload, { status })
+  const response = NextResponse.json(payload, { status, headers: SECURITY_HEADERS })
   if (!request.cookies.get(COOKIE_NAME)) {
     response.cookies.set(COOKIE_NAME, conversationId, COOKIE_OPTIONS)
   }
@@ -49,7 +59,7 @@ export async function POST(request: NextRequest) {
   if (process.env.CHAT_ENABLED !== 'true') {
     return NextResponse.json(
       { error: 'Chat is currently unavailable', handoffUrl: '/contact' },
-      { status: 503 },
+      { status: 503, headers: SECURITY_HEADERS },
     )
   }
 
@@ -57,19 +67,19 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json()
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400, headers: SECURITY_HEADERS })
   }
 
   const parsed = chatRequestSchema.safeParse(body)
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Invalid request payload', details: parsed.error.flatten() },
-      { status: 400 },
+      { error: 'Invalid request payload' },
+      { status: 400, headers: SECURITY_HEADERS },
     )
   }
 
-  const lastUserMessage = parsed.data.messages[parsed.data.messages.length - 1]
-  const inbound = evaluateInboundMessage(lastUserMessage.content)
+  const userMessage = parsed.data
+  const inbound = evaluateInboundMessage(userMessage)
 
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
   const rateLimitResult = await checkRateLimit(rateLimitKey(ip, '/api/chat'))
@@ -82,7 +92,10 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 429,
-        headers: { 'Retry-After': String(Math.ceil((rateLimitResult.resetMs ?? 60000) / 1000)) },
+        headers: {
+          ...SECURITY_HEADERS,
+          'Retry-After': String(Math.ceil((rateLimitResult.resetMs ?? 60000) / 1000)),
+        },
       },
     )
   }
@@ -91,12 +104,15 @@ export async function POST(request: NextRequest) {
   if (!budgetStatus.allowed && inbound.action === 'allow') {
     return NextResponse.json(
       { error: 'AI budget exhausted for this month', handoffUrl: '/contact' },
-      { status: 503 },
+      { status: 503, headers: SECURITY_HEADERS },
     )
   }
 
   const repo = new ChatRepository()
   let conversationId = request.cookies.get(COOKIE_NAME)?.value
+  if (!isValidConversationId(conversationId)) {
+    conversationId = undefined
+  }
 
   if (!conversationId) {
     conversationId = await repo.createConversation({
@@ -106,9 +122,7 @@ export async function POST(request: NextRequest) {
   }
 
   const storedUserContent =
-    inbound.action === 'allow'
-      ? inbound.content
-      : redactSensitiveText(lastUserMessage.content.trim())
+    inbound.action === 'allow' ? inbound.content : redactSensitiveText(userMessage)
 
   await repo.addMessage({
     conversationId,
@@ -131,9 +145,11 @@ export async function POST(request: NextRequest) {
   }
 
   const history = await repo.getRecentMessages(conversationId, 20)
-  const contextMessages = history
-    .reverse()
-    .map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }))
+  const contextMessages = sanitizeConversationForModel(
+    history
+      .reverse()
+      .map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+  )
 
   let reply: ChatReply
   try {
@@ -149,7 +165,7 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV !== 'production') {
       payload.detail = message
     }
-    return NextResponse.json(payload, { status: 502 })
+    return NextResponse.json(payload, { status: 502, headers: SECURITY_HEADERS })
   }
 
   await repo.addMessage({

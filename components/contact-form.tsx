@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { Check } from 'lucide-react'
 import { SITE } from '@/lib/site-data'
 import { buildMailto } from '@/lib/seo'
+import { readChatHandoff, clearChatHandoff } from '@/lib/chat-handoff'
+import { sanitizeHandoffText } from '@/lib/chat-security'
 
 const NEEDS = [
   'Website',
@@ -35,6 +37,19 @@ export function ContactForm() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    const stored = readChatHandoff()
+    if (stored) {
+      if (NEEDS.includes(stored.need)) {
+        setNeed(stored.need)
+      }
+      const summary = sanitizeHandoffText(stored.summary)
+      if (summary) {
+        setMessage((prev) => `${prev}${prev ? '\n\n' : ''}Chat context:\n${summary}`)
+      }
+      clearChatHandoff()
+      return
+    }
+
     const params = new URLSearchParams(window.location.search)
     const handoffNeed = params.get('need')
     const handoffContext = params.get('context')
@@ -42,7 +57,9 @@ export function ContactForm() {
       setNeed(handoffNeed)
     }
     if (handoffContext) {
-      setMessage((prev) => `${prev}${prev ? '\n\n' : ''}Chat context:\n${handoffContext}`)
+      setMessage((prev) =>
+        `${prev}${prev ? '\n\n' : ''}Chat context:\n${sanitizeHandoffText(handoffContext)}`,
+      )
     }
     if (handoffNeed || handoffContext) {
       window.history.replaceState({}, '', '/contact')

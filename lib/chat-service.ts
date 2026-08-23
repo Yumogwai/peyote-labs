@@ -57,15 +57,13 @@ export class ChatService {
     const knowledgeBase = knowledge ?? buildChatKnowledge()
     const systemPrompt = this.buildSystemPrompt(knowledgeBase)
 
-    const contents = [
-      { role: 'user', parts: [{ text: systemPrompt }] },
-      ...messages.map((m) => ({ role: m.role, parts: [{ text: m.content }] })),
-    ]
+    const contents = messages.map((m) => ({ role: m.role, parts: [{ text: m.content }] }))
 
     const response = await this.ai.models.generateContent({
       model: MODEL_ID,
       contents,
       config: {
+        systemInstruction: systemPrompt,
         temperature: 0.2,
         maxOutputTokens: 800,
         responseMimeType: 'application/json',
