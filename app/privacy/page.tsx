@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { PageHeader } from '@/components/primitives'
 import { SITE } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Privacy',
-  description: 'How Peyote Labs handles the information you share with us.',
-}
+export const metadata: Metadata = pageMetadata(
+  '/privacy',
+  'Privacy',
+  'How Peyote Labs handles the information you share with us.',
+)
 
 export default function PrivacyPage() {
   return (
@@ -19,7 +21,8 @@ export default function PrivacyPage() {
           </Section>
           <Section title="How we use it">
             We use your information solely to respond to your enquiry and, where relevant, to
-            carry out work you have asked us to do. Replies come from {SITE.email}.
+            carry out work you have asked us to do. The contact form delivers the message to
+            our studio inbox. Replies come from {SITE.email}.
           </Section>
           <Section title="Analytics">
             We use privacy-respecting analytics to understand aggregate site usage. This does

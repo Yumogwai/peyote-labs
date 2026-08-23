@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Check } from 'lucide-react'
 import { SITE } from '@/lib/site-data'
+import { buildMailto } from '@/lib/seo'
 
 const NEEDS = [
   'Website',
@@ -14,14 +15,60 @@ const NEEDS = [
   'Other',
 ]
 
+type Payload = {
+  name: string
+  company: string
+  email: string
+  need: string
+  message: string
+}
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
   const [name, setName] = useState('')
+  const [sending, setSending] = useState(false)
+  const [mailtoOpened, setMailtoOpened] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // No backend wired yet — capture intent and confirm calmly.
-    setSubmitted(true)
+    if (sending) return
+    setError(null)
+    setSending(true)
+
+    const fd = new FormData(e.currentTarget)
+    if (String(fd.get('website') || '').trim()) {
+      setSubmitted(true)
+      setSending(false)
+      return
+    }
+
+    const payload: Payload = {
+      name: String(fd.get('name') || '').trim(),
+      company: String(fd.get('company') || '').trim(),
+      email: String(fd.get('email') || '').trim(),
+      need: String(fd.get('need') || '').trim(),
+      message: String(fd.get('message') || '').trim(),
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null
+      if (res.ok && data?.ok) {
+        setSubmitted(true)
+        return
+      }
+      throw new Error(data?.error || 'send failed')
+    } catch {
+      window.location.href = buildMailto(payload)
+      setMailtoOpened(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   if (submitted) {
@@ -41,8 +88,28 @@ export function ContactForm() {
     )
   }
 
+  if (mailtoOpened) {
+    return (
+      <div className="flex flex-col items-start gap-4 rounded-xl border border-border bg-surface/40 p-8">
+        <h2 className="font-display text-xl font-medium">Finish sending from your email.</h2>
+        <p className="max-w-md leading-relaxed text-muted-foreground">
+          Your email app should have opened with the message ready. If it did not, write to{' '}
+          <a href={`mailto:${SITE.email}`} className="text-foreground underline underline-offset-2">
+            {SITE.email}
+          </a>
+          .
+        </p>
+      </div>
+    )
+  }
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" htmlFor="name">
           <input
@@ -94,11 +161,14 @@ export function ContactForm() {
         />
       </Field>
 
+      {error && <p className="text-sm text-destructive">{error}</p>}
+
       <button
         type="submit"
-        className="mt-1 inline-flex items-center justify-center rounded-sm bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-2"
+        disabled={sending}
+        className="mt-1 inline-flex items-center justify-center rounded-sm bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-2 disabled:opacity-60"
       >
-        Send to Peyote Labs
+        {sending ? 'Sending…' : 'Send to Peyote Labs'}
       </button>
 
       <p className="text-xs leading-relaxed text-muted-foreground">

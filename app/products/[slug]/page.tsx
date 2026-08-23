@@ -6,6 +6,7 @@ import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
 import { PRODUCTS, getProduct } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }))
@@ -19,10 +20,7 @@ export async function generateMetadata({
   const { slug } = await params
   const product = getProduct(slug)
   if (!product) return {}
-  return {
-    title: product.name,
-    description: product.tagline,
-  }
+  return pageMetadata(`/products/${slug}`, product.name, product.tagline)
 }
 
 export default async function ProductDetailPage({

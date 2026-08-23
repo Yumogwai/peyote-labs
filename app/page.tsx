@@ -5,6 +5,18 @@ import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, SectionHeading, Eyebrow } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
 import { SERVICES, PRODUCTS } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
+
+export const metadata = {
+  ...pageMetadata(
+    '/',
+    'Peyote Labs — a two-person studio in Warsaw',
+    'Peyote Labs is two people in Warsaw. We run our own products — JobCommand and WellFitCV — and we do websites, SEO, creatives and ads for other companies.',
+  ),
+  title: {
+    absolute: 'Peyote Labs — a two-person studio in Warsaw',
+  },
+}
 
 export default function Home() {
   return (

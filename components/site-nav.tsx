@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { LogoWordmark } from '@/components/logo'
@@ -16,6 +16,10 @@ const LINKS = [
 export function SiteNav() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95">

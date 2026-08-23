@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import { PageHeader, Eyebrow } from '@/components/primitives'
 import { ContactForm } from '@/components/contact-form'
 import { SITE } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description:
-    'Tell Peyote Labs what you need — website, SEO, audit, creatives, ads, or a product partnership. We reply from the studio inbox.',
-}
+export const metadata: Metadata = pageMetadata(
+  '/contact',
+  'Contact',
+  'Tell Peyote Labs what you need — website, SEO, audit, creatives, ads, or a product partnership. We reply from the studio inbox.',
+)
 
 export default function ContactPage() {
   return (

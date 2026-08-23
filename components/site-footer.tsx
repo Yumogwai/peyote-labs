@@ -7,7 +7,9 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-surface/40">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="max-w-xs">
-          <LogoMark className="h-9 w-9" />
+          <Link href="/" aria-label="Peyote Labs home">
+            <LogoMark className="h-9 w-9" />
+          </Link>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             A two-person software studio in {SITE.location}. We ship practical AI products —
             built honestly, used by real people.

@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import { PageHeader, PrimaryCta, TextLink } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
 import { PRODUCTS } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Products',
-  description:
-    'JobCommand and WellFitCV — live SaaS built and maintained by Peyote Labs, used by real people.',
-}
+export const metadata: Metadata = pageMetadata(
+  '/products',
+  'Products',
+  'JobCommand and WellFitCV — live SaaS built and maintained by Peyote Labs, used by real people.',
+)
 
 export default function ProductsPage() {
   const jobcommand = PRODUCTS[0]
