@@ -42,6 +42,8 @@ export function ChatWidget() {
   })
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesScrollRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLElement>(null)
   const isFirstOpen = useRef(true)
 
   // Load privacy acceptance from localStorage
@@ -58,6 +60,36 @@ export function ChatWidget() {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [state.messages])
+
+  // Keep wheel / touch scroll inside the chat panel (no background scroll-through)
+  useEffect(() => {
+    if (!open) return
+
+    const panel = panelRef.current
+    const messages = messagesScrollRef.current
+    if (!panel) return
+
+    const trapWheel = (event: WheelEvent) => {
+      const scrollEl = messages
+      if (!scrollEl) {
+        event.preventDefault()
+        return
+      }
+
+      const { scrollTop, scrollHeight, clientHeight } = scrollEl
+      const canScroll = scrollHeight > clientHeight + 1
+      const delta = event.deltaY
+      const atTop = scrollTop <= 0
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1
+
+      if (!canScroll || (delta < 0 && atTop) || (delta > 0 && atBottom)) {
+        event.preventDefault()
+      }
+    }
+
+    panel.addEventListener('wheel', trapWheel, { passive: false })
+    return () => panel.removeEventListener('wheel', trapWheel)
+  }, [open])
 
   // Generate unique ID
   const generateId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
@@ -214,10 +246,11 @@ export function ChatWidget() {
     <div className="fixed bottom-5 right-5 z-50 sm:bottom-7 sm:right-7" onKeyDown={handleKeyDown}>
       {open && (
         <section
+          ref={panelRef}
           aria-label="Peyote Labs chat"
-          className="mb-3 flex w-[min(23rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl shadow-black/30 animate-in slide-in-from-bottom-2 duration-200"
+          className="mb-3 flex max-h-[min(32rem,70vh)] w-[min(23rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl shadow-black/30 animate-in slide-in-from-bottom-2 duration-200"
         >
-          <header className="flex items-center justify-between border-b border-border px-4 py-3">
+          <header className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
             <p className="font-display text-base font-medium">Ask Peyote Labs</p>
             <button
               type="button"
@@ -229,10 +262,13 @@ export function ChatWidget() {
             </button>
           </header>
 
-          <div className="flex flex-col gap-4 p-4 max-h-[60vh] overflow-y-auto">
+          <div
+            ref={messagesScrollRef}
+            className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-4"
+          >
             {/* Privacy banner */}
             {state.showPrivacyBanner && (
-              <div className="rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs leading-relaxed text-accent-foreground">
+              <div className="mb-4 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs leading-relaxed text-accent-foreground">
                 This chat is for Peyote Labs services only. We store messages under an anonymous ID.
                 Do not share passwords, API keys, payment cards, or other secrets here.
                 <a href="/privacy" className="underline hover:no-underline ml-1">
@@ -362,10 +398,12 @@ export function ChatWidget() {
 
               <div ref={messagesEndRef} />
             </div>
+          </div>
 
+          <div className="shrink-0 border-t border-border p-4 pt-3">
             {/* Input area */}
             {state.status !== 'handoff' && state.status !== 'budget_exhausted' && (
-              <form onSubmit={handleSubmit} className="flex gap-2 pt-2 border-t border-border">
+              <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
                   type="text"
                   value={inputValue}
@@ -388,7 +426,7 @@ export function ChatWidget() {
             )}
 
             {/* Disclaimer */}
-            <p className="text-xs leading-relaxed text-muted-foreground text-center">
+            <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
               AI assistant for Peyote Labs services only. Never share secrets here.
             </p>
           </div>
