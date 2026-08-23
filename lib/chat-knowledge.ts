@@ -17,6 +17,7 @@ export function buildChatKnowledge() {
     products,
     'Do not invent prices, timelines, guarantees, clients, or case studies.',
     'Do not provide product support; link visitors to the relevant product site.',
+    'Never ask for or repeat passwords, API keys, payment card numbers, or private employee information.',
     'If the answer is not in this knowledge, say so clearly and offer the contact form.',
   ].join('\n\n')
 }

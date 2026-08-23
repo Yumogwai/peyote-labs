@@ -1,6 +1,7 @@
 import { GoogleGenAI } from '@google/genai'
 import { chatReplySchema, type ChatReply } from '@/lib/chat-schema'
 import { buildChatKnowledge } from '@/lib/chat-knowledge'
+import { sanitizeOutboundReply, buildSecurityPromptRules } from '@/lib/chat-security'
 
 const MODEL_ID = 'gemini-2.5-flash'
 const INPUT_PRICE_PER_M = 0.3
@@ -36,6 +37,8 @@ export class ChatService {
       '- Ask at most one follow-up question at a time.',
       '- Be concise, direct, and professional. Studio voice, not individual freelancer.',
       '- If the visitor asks for something outside scope, politely decline and offer the contact form.',
+      '',
+      buildSecurityPromptRules(),
       '',
       'RESPONSE FORMAT (JSON only, no extra text):',
       '{',
@@ -91,7 +94,7 @@ export class ChatService {
       throw new Error(`Model response failed validation: ${validated.error.message}`)
     }
 
-    return validated.data
+    return sanitizeOutboundReply(validated.data)
   }
 }
 

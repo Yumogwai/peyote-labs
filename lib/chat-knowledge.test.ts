@@ -18,6 +18,6 @@ describe('buildChatKnowledge', () => {
     const knowledge = buildChatKnowledge()
 
     expect(knowledge).toContain('Do not invent prices, timelines, guarantees, clients, or case studies.')
-    expect(knowledge).toContain('Do not provide product support; link visitors to the relevant product site.')
+    expect(knowledge).toContain('Never ask for or repeat passwords, API keys, payment card numbers, or private employee information.')
   })
 })
