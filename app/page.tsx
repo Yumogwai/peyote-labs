@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { Hero } from '@/components/home/hero'
 import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, SectionHeading, Eyebrow } from '@/components/primitives'
+import { StudioPhoto } from '@/components/studio-photo'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
 import { SERVICES, PRODUCTS } from '@/lib/site-data'
 import { pageMetadata } from '@/lib/seo'
@@ -26,6 +27,7 @@ export default function Home() {
       <ServicesList />
       <ProductPanels />
       <HowWeWork />
+      <StudioStrip />
       <ContactStrip />
     </>
   )
@@ -195,6 +197,31 @@ function HowWeWork() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function StudioStrip() {
+  return (
+    <section className="border-b border-border">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
+        <figure className="overflow-hidden rounded-sm border border-border">
+          <StudioPhoto />
+        </figure>
+        <div>
+          <Eyebrow>The studio</Eyebrow>
+          <h2 className="mt-3 font-display text-3xl font-medium leading-[1.15] text-balance sm:text-4xl">
+            Two people. Warsaw.
+          </h2>
+          <p className="mt-4 max-w-md text-pretty leading-relaxed text-muted-foreground">
+            When you write to us, you reach the people in this photo — not a sales layer, and
+            not a junior team behind a deck.
+          </p>
+          <div className="mt-6">
+            <TextLink href="/about">About the studio</TextLink>
+          </div>
         </div>
       </div>
     </section>

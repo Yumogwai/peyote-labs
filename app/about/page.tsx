@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { PageHeader, PrimaryCta, Eyebrow } from '@/components/primitives'
+import { StudioPhoto } from '@/components/studio-photo'
 import { SITE } from '@/lib/site-data'
 import { pageMetadata } from '@/lib/seo'
 
@@ -38,39 +39,46 @@ export default function AboutPage() {
       />
 
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-        <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <Eyebrow>The studio</Eyebrow>
-            <div className="mt-6 flex flex-col gap-5 text-pretty leading-relaxed text-foreground/90">
-              <p>
-                Peyote Labs is two people based in {SITE.location}. We build software products
-                and growth systems — and we run our own SaaS to keep ourselves honest about
-                what actually ships.
-              </p>
-              <p>
-                We do not carry a roster of fake enterprise logos or borrowed pedigree. What we
-                have is working products, a clear way of working, and the willingness to tell
-                you when something is not worth building.
-              </p>
-              <p>
-                When we take on client work, you get the same two people who ship JobCommand and
-                WellFitCV — not a junior team behind a polished deck.
-              </p>
-            </div>
+        <figure>
+          <div className="overflow-hidden rounded-sm border border-border">
+            <StudioPhoto priority />
           </div>
+          <figcaption className="mt-3 font-display text-sm italic text-muted-foreground">
+            Warsaw. The two of us.
+          </figcaption>
+        </figure>
 
-          <div>
-            <Eyebrow>How we think</Eyebrow>
-            <div className="mt-6 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
-              {PRINCIPLES.map((p) => (
-                <div key={p.title} className="bg-background p-7">
-                  <h2 className="font-display text-lg font-medium">
-                    {p.title}
-                  </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-                </div>
-              ))}
-            </div>
+        <div className="mt-14 max-w-2xl lg:mt-20">
+          <Eyebrow>The studio</Eyebrow>
+          <div className="mt-6 flex flex-col gap-5 text-pretty leading-relaxed text-foreground/90">
+            <p>
+              Peyote Labs is two people based in {SITE.location}. We build software products
+              and growth systems — and we run our own SaaS to keep ourselves honest about
+              what actually ships.
+            </p>
+            <p>
+              We do not carry a roster of fake enterprise logos or borrowed pedigree. What we
+              have is working products, a clear way of working, and the willingness to tell
+              you when something is not worth building.
+            </p>
+            <p>
+              When we take on client work, you get the same two people who ship JobCommand and
+              WellFitCV — not a junior team behind a polished deck.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-16 lg:mt-24">
+          <Eyebrow>How we think</Eyebrow>
+          <div className="mt-6 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2">
+            {PRINCIPLES.map((p) => (
+              <div key={p.title} className="bg-background p-7">
+                <h2 className="font-display text-lg font-medium">
+                  {p.title}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
+              </div>
+            ))}
           </div>
         </div>
 
