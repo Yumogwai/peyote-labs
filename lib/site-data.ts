@@ -1,4 +1,6 @@
 export const SITE = {
+  name: 'Peyote Labs',
+  url: 'https://www.peyote-labs.com',
   email: 'hello@peyotelabs.com',
   linkedin: 'https://www.linkedin.com/company/peyote-labs-software-company/',
   location: 'Warsaw',

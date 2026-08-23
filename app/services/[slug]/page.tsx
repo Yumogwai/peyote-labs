@@ -5,6 +5,7 @@ import { ArrowLeft, Check } from 'lucide-react'
 import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
 import { SERVICES, getService } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }))
@@ -18,10 +19,7 @@ export async function generateMetadata({
   const { slug } = await params
   const service = getService(slug)
   if (!service) return {}
-  return {
-    title: service.name,
-    description: service.short,
-  }
+  return pageMetadata(`/services/${slug}`, service.name, service.short)
 }
 
 export default async function ServiceDetailPage({

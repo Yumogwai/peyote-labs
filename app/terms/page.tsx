@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { PageHeader } from '@/components/primitives'
 import { SITE } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Terms',
-  description: 'The terms that apply to this website and to working with Peyote Labs.',
-}
+export const metadata: Metadata = pageMetadata(
+  '/terms',
+  'Terms',
+  'The terms that apply to this website and to working with Peyote Labs.',
+)
 
 export default function TermsPage() {
   return (

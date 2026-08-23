@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { PageHeader, PrimaryCta } from '@/components/primitives'
 import { SERVICES } from '@/lib/site-data'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Services',
-  description:
-    'Websites, SEO and SEO automation, marketing audits, creative generation, and advertising — run as systems, not one-off deliverables.',
-}
+export const metadata: Metadata = pageMetadata(
+  '/services',
+  'Services',
+  'Websites, SEO and SEO automation, marketing audits, creative generation, and advertising — run as systems, not one-off deliverables.',
+)
 
 export default function ServicesPage() {
   return (
