@@ -53,10 +53,9 @@ export async function POST(req: Request) {
     const data = (await res.json().catch(() => null)) as
       | { success?: string | boolean; message?: string }
       | null
-    const sent =
-      res.ok &&
-      (data?.success === true || data?.success === 'true' || Boolean(data?.message))
+    const sent = res.ok && (data?.success === true || data?.success === 'true')
     if (!sent) {
+      console.error('[contact] FormSubmit rejected:', res.status, data?.message ?? data)
       return NextResponse.json(
         { ok: false, error: 'Could not send just now. Use the studio inbox instead.' },
         { status: 502 },
