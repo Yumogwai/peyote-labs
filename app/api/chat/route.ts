@@ -93,14 +93,15 @@ export async function POST(request: NextRequest) {
     .map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }))
 
   // Generate AI response
-  const service = new ChatService()
   let reply
   try {
+    const service = new ChatService()
     reply = await service.generateReply(contextMessages, getDefaultKnowledge())
   } catch (error) {
-    console.error('[chat] Model error:', error)
+    const message = error instanceof Error ? error.message : 'Unknown model error'
+    console.error('[chat] Model error:', message, error)
     return NextResponse.json(
-      { error: 'Unable to generate response', handoffUrl: '/contact' },
+      { error: 'Unable to generate response', handoffUrl: '/contact', detail: message },
       { status: 502 }
     )
   }
@@ -111,7 +112,7 @@ export async function POST(request: NextRequest) {
     role: 'assistant',
     content: reply.answer,
     pagePath: request.headers.get('referer') ?? '/',
-    modelId: 'gemini-3.5-flash',
+    modelId: 'gemini-2.5-flash',
     latencyMs: 0, // Could be measured
   })
 

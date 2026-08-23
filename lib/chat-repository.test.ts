@@ -85,7 +85,7 @@ describe('ChatRepository', () => {
         content: 'Hello!',
         createdAt: new Date('2024-01-01T10:00:01Z'),
         pagePath: '/',
-        modelId: 'gemini-3.5-flash',
+        modelId: 'gemini-2.5-flash',
         latencyMs: 500,
       },
     ]

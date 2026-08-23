@@ -2,9 +2,9 @@ import { GoogleGenAI } from '@google/genai'
 import { chatReplySchema, type ChatReply } from '@/lib/chat-schema'
 import { buildChatKnowledge } from '@/lib/chat-knowledge'
 
-const MODEL_ID = 'gemini-3.5-flash'
-const INPUT_PRICE_PER_M = 1.50
-const OUTPUT_PRICE_PER_M = 9.00
+const MODEL_ID = 'gemini-2.5-flash'
+const INPUT_PRICE_PER_M = 0.3
+const OUTPUT_PRICE_PER_M = 2.5
 
 export function estimateTurnCost(inputTokens: number, outputTokens: number): number {
   return (inputTokens / 1_000_000) * INPUT_PRICE_PER_M + (outputTokens / 1_000_000) * OUTPUT_PRICE_PER_M
@@ -64,8 +64,8 @@ export class ChatService {
       contents,
       config: {
         temperature: 0.2,
-        maxOutputTokens: 500,
-        thinkingConfig: { thinkingBudget: 0 }, // Disable thinking for speed/cost
+        maxOutputTokens: 800,
+        responseMimeType: 'application/json',
       },
     })
 
@@ -74,9 +74,14 @@ export class ChatService {
       throw new Error('Empty response from model')
     }
 
+    const jsonText = text
+      .replace(/^```(?:json)?\s*/i, '')
+      .replace(/\s*```$/i, '')
+      .trim()
+
     let parsed: unknown
     try {
-      parsed = JSON.parse(text)
+      parsed = JSON.parse(jsonText)
     } catch {
       throw new Error('Model response is not valid JSON')
     }
