@@ -32,17 +32,12 @@ export const metadata: Metadata = {
   description:
     'Peyote Labs is two people in Warsaw. We run our own products — JobCommand and WellFitCV — and we do websites, SEO, creatives and ads for other companies.',
   metadataBase: new URL(SITE.url),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
-    title: 'Peyote Labs — a two-person studio in Warsaw',
-    description:
-      'Two people. Two live products. Client work done the same way: websites, SEO, creatives and ads.',
-    url: SITE.url,
-    siteName: SITE.name,
     type: 'website',
-    locale: 'en_US',
+    siteName: SITE.name,
+    locale: 'en_GB',
+    // title/description/images set per-page via pageMetadata so inner routes
+    // do not inherit homepage OG copy.
   },
   twitter: {
     card: 'summary_large_image',

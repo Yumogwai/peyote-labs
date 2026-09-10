@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata(
   '/services',
-  'Services',
+  'Websites, SEO & growth systems',
   'Websites, SEO and SEO automation, marketing audits, creative generation, and advertising — run as systems, not one-off deliverables.',
 )
 
@@ -18,6 +18,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="We build and grow digital systems for businesses."
         intro="Five services, run with the same craft we put into our own products. Pick one, or let us diagnose where the leverage is."
+        cta={<PrimaryCta href="/contact">Talk to the studio</PrimaryCta>}
       />
 
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">

@@ -7,6 +7,17 @@ const nextConfig = {
   async rewrites() {
     return [{ source: '/favicon.ico', destination: '/icon' }]
   },
+  async redirects() {
+    return [
+      // Collapse apex → www in one hop when the request hits this app.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'peyote-labs.com' }],
+        destination: 'https://www.peyote-labs.com/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

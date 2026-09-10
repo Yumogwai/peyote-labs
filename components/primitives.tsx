@@ -75,9 +75,15 @@ export function TextLink({
   )
 }
 
-export function Eyebrow({ children }: { children: React.ReactNode }) {
+export function Eyebrow({
+  children,
+  as: Tag = 'span',
+}: {
+  children: React.ReactNode
+  as?: 'span' | 'h2' | 'h3'
+}) {
   return (
-    <span className="font-display text-[0.95rem] italic text-accent">{children}</span>
+    <Tag className="font-display text-[0.95rem] italic text-accent">{children}</Tag>
   )
 }
 
@@ -85,10 +91,15 @@ export function PageHeader({
   eyebrow,
   title,
   intro,
+  cta,
+  compactMobile,
 }: {
   eyebrow: string
   title: string
   intro?: string
+  cta?: React.ReactNode
+  /** Tighter top padding so forms / CTAs enter the first mobile viewport sooner */
+  compactMobile?: boolean
 }) {
   return (
     <section className="relative overflow-hidden border-b border-border">
@@ -97,7 +108,13 @@ export function PageHeader({
         aria-hidden
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent"
       />
-      <div className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <div
+        className={
+          compactMobile
+            ? 'relative mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-24'
+            : 'relative mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24'
+        }
+      >
         <Eyebrow>{eyebrow}</Eyebrow>
         <h1 className="mt-4 max-w-3xl font-display text-4xl font-medium leading-[1.12] text-balance sm:text-5xl">
           {title}
@@ -107,6 +124,7 @@ export function PageHeader({
             {intro}
           </p>
         )}
+        {cta && <div className="mt-8">{cta}</div>}
       </div>
     </section>
   )

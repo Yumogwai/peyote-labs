@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata(
   '/products',
-  'Products',
+  'JobCommand & WellFitCV',
   'JobCommand and WellFitCV — live SaaS built and maintained by Peyote Labs, used by real people.',
 )
 

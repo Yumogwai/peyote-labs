@@ -6,8 +6,8 @@ import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata(
   '/contact',
-  'Contact',
-  'Tell Peyote Labs what you need — website, SEO, audit, creatives, ads, or a product partnership. We reply from the studio inbox.',
+  'Contact the Warsaw studio',
+  'Tell Peyote Labs what you need — website, SEO, audit, creatives, ads, or a product partnership. We usually reply within one business day from the studio inbox.',
 )
 
 export default function ContactPage() {
@@ -15,14 +15,15 @@ export default function ContactPage() {
     <>
       <PageHeader
         eyebrow="Contact"
-        title="Writing as Peyote Labs — not as a freelancer."
-        intro="Suitable for outbound, partnerships, and client work. Tell us what you need and we'll reply from the studio inbox."
+        title="Tell us what you need. We reply from the studio."
+        intro="Website, SEO, audit, creatives, ads, or a product build — write once. We usually answer within one business day."
+        compactMobile
       />
 
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-24">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr]">
           <div>
-            <Eyebrow>The studio</Eyebrow>
+            <Eyebrow as="h2">The studio</Eyebrow>
             <div className="mt-6 flex flex-col gap-5 leading-relaxed text-foreground/90">
               <p>
                 We are a two-person studio in {SITE.location}. When you write to us, you reach
@@ -56,11 +57,17 @@ export default function ContactPage() {
               <ContactRow label="Based in">
                 <span className="text-foreground">{SITE.location}</span>
               </ContactRow>
+              <ContactRow label="Response">
+                <span className="text-foreground">Usually within one business day</span>
+              </ContactRow>
             </div>
           </div>
 
           <div className="rounded-xl border border-border bg-surface/30 p-6 sm:p-8">
-            <ContactForm />
+            <Eyebrow as="h2">Write to us</Eyebrow>
+            <div className="mt-6">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
@@ -71,9 +78,7 @@ export default function ContactPage() {
 function ContactRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="font-display text-sm italic text-muted-foreground">
-        {label}
-      </span>
+      <span className="font-display text-sm italic text-muted-foreground">{label}</span>
       {children}
     </div>
   )

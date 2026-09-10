@@ -5,7 +5,9 @@ import { ArrowLeft } from 'lucide-react'
 import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
 import { PipelineMock, ResumeMock } from '@/components/product-mocks'
+import { JsonLd } from '@/components/json-ld'
 import { PRODUCTS, getProduct } from '@/lib/site-data'
+import { productJsonLd } from '@/lib/schema'
 import { pageMetadata } from '@/lib/seo'
 
 export function generateStaticParams() {
@@ -36,6 +38,7 @@ export default async function ProductDetailPage({
 
   return (
     <>
+      <JsonLd data={productJsonLd(product)} />
       <section className="relative overflow-hidden border-b border-border">
         <MineralBackdrop density="quiet" />
         <div
@@ -53,7 +56,7 @@ export default async function ProductDetailPage({
 
           <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center">
             <div>
-              <Eyebrow>Live product</Eyebrow>
+              <Eyebrow as="h2">Live product</Eyebrow>
               <h1 className="mt-4 font-display text-4xl font-medium leading-[1.12] sm:text-5xl">
                 {product.name}
               </h1>
@@ -79,7 +82,7 @@ export default async function ProductDetailPage({
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-        <Eyebrow>Inside {product.name}</Eyebrow>
+        <Eyebrow as="h2">Inside {product.name}</Eyebrow>
         <div className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
           {product.features.map((f) => (
             <div key={f.title} className="bg-background p-8">
