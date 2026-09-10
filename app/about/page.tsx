@@ -6,8 +6,8 @@ import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata(
   '/about',
-  'About',
-  'Peyote Labs is a two-person software studio in Warsaw. We design, build, and run our own AI products — and apply the same craft to client work.',
+  'Two-person AI studio in Warsaw',
+  'Peyote Labs is a two-person software studio in Warsaw led by Andrii Kuratov. We design, build, and run our own AI products — and apply the same craft to client work.',
 )
 
 const PRINCIPLES = [
@@ -44,17 +44,31 @@ export default function AboutPage() {
             <StudioPhoto priority />
           </div>
           <figcaption className="mt-3 font-display text-sm italic text-muted-foreground">
-            Warsaw. The two of us.
+            Warsaw. The two of us — Peyote Labs.
           </figcaption>
         </figure>
 
         <div className="mt-14 max-w-2xl lg:mt-20">
-          <Eyebrow>The studio</Eyebrow>
+          <Eyebrow as="h2">What Peyote Labs is</Eyebrow>
           <div className="mt-6 flex flex-col gap-5 text-pretty leading-relaxed text-foreground/90">
             <p>
-              Peyote Labs is two people based in {SITE.location}. We build software products
-              and growth systems — and we run our own SaaS to keep ourselves honest about
-              what actually ships.
+              Peyote Labs is a two-person software studio in {SITE.location}. We build
+              practical AI products — JobCommand and WellFitCV are live SaaS with real users —
+              and we help companies grow with websites, SEO, marketing audits, creatives, and
+              ads. The same people who ship the products do the client work.
+            </p>
+            <p>
+              The public face of the studio is{' '}
+              <a
+                href="https://www.linkedin.com/in/andriikuratov"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent underline-offset-4 hover:underline"
+              >
+                Andrii Kuratov
+              </a>
+              — a PM who vibe-codes products and automations alongside the day job. The studio
+              stays small on purpose: two people, no account layer, no diluted hand-offs.
             </p>
             <p>
               We do not carry a roster of fake enterprise logos or borrowed pedigree. What we
@@ -69,24 +83,27 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-16 lg:mt-24">
-          <Eyebrow>How we think</Eyebrow>
+          <Eyebrow as="h2">How we think</Eyebrow>
           <div className="mt-6 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2">
             {PRINCIPLES.map((p) => (
               <div key={p.title} className="bg-background p-7">
-                <h2 className="font-display text-lg font-medium">
-                  {p.title}
-                </h2>
+                <h3 className="font-display text-lg font-medium">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col items-start gap-5 border-t border-border pt-10 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="max-w-lg font-display text-2xl font-medium text-balance">
-            If that sounds like the kind of team you want, let&apos;s talk.
-          </h2>
-          <PrimaryCta href="/contact">Talk to the studio</PrimaryCta>
+        <div className="mt-16 flex flex-col items-start gap-5 rounded-xl border border-border bg-surface/40 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:mt-24">
+          <div className="max-w-lg">
+            <h2 className="font-display text-xl font-medium">
+              If that sounds like the kind of team you want, let&apos;s talk.
+            </h2>
+            <p className="mt-2 leading-relaxed text-muted-foreground">
+              Write to the studio inbox. Replies come from the people doing the work.
+            </p>
+          </div>
+          <PrimaryCta href="/contact">Write to us</PrimaryCta>
         </div>
       </section>
     </>

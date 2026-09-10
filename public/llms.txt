@@ -1,0 +1,30 @@
+# Peyote Labs
+
+> Two-person software studio in Warsaw. Practical AI products and growth systems for businesses.
+
+- Site: https://www.peyote-labs.com
+- Contact: hello@peyotelabs.com
+- Location: Warsaw, Poland
+- LinkedIn: https://www.linkedin.com/company/peyote-labs-software-company/
+- Founder (public): Andrii Kuratov — https://www.linkedin.com/in/andriikuratov
+
+## What we do
+
+Services (run as systems, not one-off deliverables):
+
+- Website design & build — https://www.peyote-labs.com/services/websites
+- SEO & SEO automation — https://www.peyote-labs.com/services/seo
+- Marketing audit — https://www.peyote-labs.com/services/marketing-audit
+- Creative generation — https://www.peyote-labs.com/services/creatives
+- Advertising — https://www.peyote-labs.com/services/advertising
+
+## Products we ship
+
+Live SaaS built and maintained in-house:
+
+- JobCommand (https://job-command.com) — AI resume, cover letters, and job pipeline
+- WellFitCV (https://wellfitcv.com) — ATS-friendly resume tailoring that never fabricates experience
+
+## Voice
+
+Company studio voice. We ship products we use, then apply the same craft to client work.

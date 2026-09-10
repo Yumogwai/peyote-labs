@@ -4,7 +4,9 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, Check } from 'lucide-react'
 import { MineralBackdrop } from '@/components/mineral-backdrop'
 import { PrimaryCta, TextLink, Eyebrow } from '@/components/primitives'
+import { JsonLd } from '@/components/json-ld'
 import { SERVICES, getService } from '@/lib/site-data'
+import { serviceJsonLd } from '@/lib/schema'
 import { pageMetadata } from '@/lib/seo'
 
 export function generateStaticParams() {
@@ -36,6 +38,7 @@ export default async function ServiceDetailPage({
 
   return (
     <>
+      <JsonLd data={serviceJsonLd(service)} />
       <section className="relative overflow-hidden border-b border-border">
         <MineralBackdrop density="quiet" />
         <div
@@ -59,16 +62,24 @@ export default async function ServiceDetailPage({
           <p className="mt-5 max-w-xl text-pretty leading-relaxed text-muted-foreground sm:text-lg">
             {service.short}
           </p>
+          <div className="mt-8">
+            <PrimaryCta href="/contact">Talk to the studio</PrimaryCta>
+          </div>
         </div>
       </section>
 
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <Eyebrow>The problem</Eyebrow>
+            <Eyebrow as="h2">The problem</Eyebrow>
             <p className="mt-5 text-pretty text-xl leading-relaxed text-foreground/90">
               {service.problem}
             </p>
+            <div className="mt-6 flex flex-col gap-4 text-pretty leading-relaxed text-foreground/85">
+              {service.depth.map((p) => (
+                <p key={p.slice(0, 48)}>{p}</p>
+              ))}
+            </div>
             <p className="mt-8 rounded-lg border border-accent/25 bg-accent/5 p-5 text-sm leading-relaxed text-accent">
               {service.outcome}
             </p>
@@ -76,7 +87,7 @@ export default async function ServiceDetailPage({
 
           <div className="flex flex-col gap-14">
             <div>
-              <Eyebrow>What we deliver</Eyebrow>
+              <Eyebrow as="h2">What we deliver</Eyebrow>
               <ul className="mt-6 flex flex-col gap-4">
                 {service.deliver.map((d) => (
                   <li key={d} className="flex gap-3">
@@ -88,13 +99,10 @@ export default async function ServiceDetailPage({
             </div>
 
             <div>
-              <Eyebrow>Process</Eyebrow>
+              <Eyebrow as="h2">Process</Eyebrow>
               <ol className="mt-6 border-t border-border">
                 {service.process.map((p, i) => (
-                  <li
-                    key={p}
-                    className="flex gap-5 border-b border-border py-4"
-                  >
+                  <li key={p} className="flex gap-5 border-b border-border py-4">
                     <span className="font-display text-sm text-accent">
                       {String(i + 1).padStart(2, '0')}
                     </span>
@@ -105,7 +113,7 @@ export default async function ServiceDetailPage({
             </div>
 
             <div>
-              <Eyebrow>Outcomes</Eyebrow>
+              <Eyebrow as="h2">Outcomes</Eyebrow>
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {service.outcomes.map((o) => (
                   <div
@@ -117,8 +125,32 @@ export default async function ServiceDetailPage({
                 ))}
               </div>
             </div>
+
+            <div>
+              <Eyebrow as="h2">Who this is for</Eyebrow>
+              <ul className="mt-6 flex flex-col gap-3">
+                {service.whoFor.map((w) => (
+                  <li key={w} className="flex gap-3 leading-relaxed text-foreground/90">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    {w}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
+
+        <section className="mt-20 border-t border-border pt-12">
+          <Eyebrow as="h2">FAQ</Eyebrow>
+          <div className="mt-8 flex flex-col divide-y divide-border border-t border-border">
+            {service.faqs.map((f) => (
+              <div key={f.q} className="py-6">
+                <h3 className="font-display text-lg font-medium text-foreground">{f.q}</h3>
+                <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <div className="mt-20 flex flex-col items-start gap-5 border-t border-border pt-10 sm:flex-row sm:items-center sm:justify-between">
           <div>

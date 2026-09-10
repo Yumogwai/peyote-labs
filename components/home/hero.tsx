@@ -14,8 +14,7 @@ export function Hero() {
       <div className="relative z-10 mx-auto max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
         <div className="flex flex-col items-start">
           <h1
-            className="animate-rise max-w-3xl font-display text-4xl font-medium leading-[1.12] text-balance sm:text-6xl"
-            style={{ animationDelay: '0ms' }}
+            className="max-w-3xl font-display text-4xl font-medium leading-[1.12] text-balance sm:text-6xl"
           >
             Our products are already live.
             <br />
