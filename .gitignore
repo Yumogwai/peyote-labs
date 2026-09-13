@@ -28,3 +28,8 @@ Thumbs.db
 # editors
 .idea
 .vscode
+
+# Local audit / agent scratch (do not commit)
+seo-audit-output/
+.hermes/
+
